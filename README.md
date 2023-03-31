@@ -1,0 +1,5 @@
+TinyBase is a lovely library. I want to use it in React Native apps, and it mostly works great there, just one issue with types currently (as of March 31, 2023 - if you are reading this much after this date it's probably fixed).
+
+The issue: Metro doesn't work with package.json the `exports` field, so we use the `react-native` field to define the entry point for React Native. This is fine until you need to import `tinybase/ui-react` (it is great, you should use it), at which point Metro will fail to resolve it `tinybase/ui-react` but TypeScript won't complain. If you import `tinybase/lib/ui-react`, all is well with Metro, but TypeScript can't find the types.
+
+One possible solution here is to use the `typesVersions` field in package.json to point to the types for `tinybase/lib/ui-react`. This works for now, without breaking anything, but it does lead to a divergence in the API and a quirk to document for React Native users.
